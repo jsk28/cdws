@@ -35,7 +35,7 @@ function App() {
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
   const kiloWhatperHourperGigabyte = 0.01;
-  let gigaByte = fileSize/1024;
+  let gigaByte = fileSize/1024*1024;
   let kiloWhatperHour = gigaByte * kiloWhatperHourperGigabyte;
   return kiloWhatperHour;
 }
