@@ -65,7 +65,7 @@ function App() {
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
   const kiloWhatperHourperGigabyte = 0.01;
-  let gigaByte = fileSize / 1024 * 1024;
+  let gigaByte = fileSize/(1024*1024);
   let kiloWhatperHour = gigaByte * kiloWhatperHourperGigabyte;
   return kiloWhatperHour;
 }
@@ -82,10 +82,9 @@ function calculator_finacialCost(fileSize) {
   return finacialCost
 }
 //assume the input is in kilo byte
-function calculator_treePlant(fileSize) {
-  const treeperKiloByte = 0.0026;
-
-  let treeCost = treeperKiloByte * fileSize;
+function calculator_treePlant(fileSize){
+  const treeperKiloWhatperHour = 64.333;
+  let treeCost = calculator_kilowhatPerhour(fileSize) * treeperKiloWhatperHour;
   return treeCost;
 }
 
