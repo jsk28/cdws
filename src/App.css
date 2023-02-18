@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 4s linear;
   }
 }
 
@@ -25,14 +25,32 @@
 }
 
 .App-link {
-  color: #61dafb;
+  background-color: #47a6bf;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.App-link:hover {
+  background-color: #33778a;
+}
+
+
+
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  100% {
+    transform: translatex(0px) translatey(0px);
+    
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    
+    transform: translatex(-50px) translatey(35px);
   }
 }
+
+
