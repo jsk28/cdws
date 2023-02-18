@@ -2,6 +2,11 @@ import logo from './ship.png';
 import './App.css';
 import { useEffect, useState } from 'react';
 
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from 'react';
+import { OrbitControls } from '@react-three/drei';
+import Model from './Titanic';
+
 function App() {
 
   const [githubData, setGithubData] = useState({ message: 'Start' })
@@ -17,16 +22,25 @@ function App() {
       .then((data) => setGithubData(data));
   }
 
+  //<img src={logo} className="App-logo" alt="logo" />
 
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Save the Titanic!
+          Did you know that Github is carbon neutral?
         </p>
-        <img src={logo} className="App-logo" alt="logo" />
-
-
+        <div style={{ position: "relative", width: '100%', height: 500 }}>
+          <Canvas height='500'>
+            <ambientLight intensity={0.25} />
+            <ambientLight intensity={0.1} />
+            <directionalLight intensity={0.2} />
+            <Suspense fallback={null}>
+              <Model />
+            </Suspense>
+            <OrbitControls />
+          </Canvas>
+        </div>
         <br></br>
 
         <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} className="input_search" />
@@ -51,26 +65,26 @@ function App() {
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
   const kiloWhatperHourperGigabyte = 0.01;
-  let gigaByte = fileSize/1024*1024;
+  let gigaByte = fileSize / 1024 * 1024;
   let kiloWhatperHour = gigaByte * kiloWhatperHourperGigabyte;
   return kiloWhatperHour;
 }
 //assume the input is in kilo byte
 function calculator_carbonEmision(fileSize) {
   const CarbonPerKiloWhatPerHour = 0.309;
-  let CarbonperEmission = calculator_kilowhatPerhour(fileSize) * CarbonPerKiloWhatPerHour; 
+  let CarbonperEmission = calculator_kilowhatPerhour(fileSize) * CarbonPerKiloWhatPerHour;
   return CarbonperEmission;
 }
 //assume the input is in kilo byte
-function calculator_finacialCost(fileSize){
-const pricePerKiloWhat = 0.32;
-let finacialCost = calculator_kilowhatPerhour(fileSize) * pricePerKiloWhat;
-return finacialCost
+function calculator_finacialCost(fileSize) {
+  const pricePerKiloWhat = 0.32;
+  let finacialCost = calculator_kilowhatPerhour(fileSize) * pricePerKiloWhat;
+  return finacialCost
 }
 //assume the input is in kilo byte
-function calculator_treePlant(fileSize){
+function calculator_treePlant(fileSize) {
   const treeperKiloByte = 0.0026;
-  
+
   let treeCost = treeperKiloByte * fileSize;
   return treeCost;
 }
