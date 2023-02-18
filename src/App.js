@@ -35,7 +35,7 @@ function App() {
         <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} className="input_search" />
         <button onClick={fetchData} className="search_button">Search Github</button>
         <br></br>
-        <p>{githubData.size}</p>
+        <p>{calculator(githubData.size)}</p>
 
         <a
           className="App-link"
@@ -54,3 +54,6 @@ function App() {
 
 export default App;
 
+function calculator(number) {
+    return number + 100;
+}
