@@ -1,33 +1,49 @@
 import logo from './ship.png';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [githubData, setGithubData] = useState({ message: 'Start' })
+  const [githubUser, setGithubUser] = useState("")
+  const [repo, setGithubRepo] = useState("")
+
+
+  const fetchData = async () => {
+    console.log(repo)
+    console.log(githubData.message)
+    return fetch(`https://api.github.com/repos/${githubUser}/${repo}`)
+      .then((response) => response.json())
+      .then((data) => setGithubData(data));
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
-      <p>
+        <p>
           Save the Titanic!
-      </p>
+        </p>
         <img src={logo} className="App-logo" alt="logo" />
 
 
-      <br></br>
+        <br></br>
 
-        <label for="url-input"></label>
-        <input type="text" id="url-input" name="url"></input>
+        <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} className="input_search" />
+        <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} className="input_search" />
+        <button onClick={fetchData} className="search_button">Search Github</button>
 
         <br></br>
-       
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-
-          
-        >
-          Connect your Github account
-        </a>
+        {githubData.message == 'Start' ?
+          <div>
+            <p>Enter ur github username and repository name! &#128018;</p>
+          </div> : githubData.message == 'Not Found' ?
+            <p>Ups... couldn't find it. Try again! &#129431;</p> :
+            <div>
+              <p>Ur code takes {githubData.size} kB on GitHub servers! &#128560;</p>
+              <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(2)} trees this year for you to stay carbon-neutral! &#129382;</p>
+            </div>
+        }
       </header>
     </div>
   );
