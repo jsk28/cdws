@@ -51,11 +51,13 @@ function App() {
             stop: ["\"\"\""],
           });
           if (response2.status !== 200) {
+            setGptData({ message: 'Not Found'});
             throw data2.error || new Error(`Request failed with status ${response2.status}`);
+          } else {
+            const data2 = JSON.stringify(response2);
+            const answer = response2.data.choices[0].text;
+            setGptData(answer_parser(answer));
           }
-          const data2 = JSON.stringify(response2);
-          const answer = response2.data.choices[0].text;
-          setGptData(answer_parser(answer));
 
         } catch (error) {
           // Consider implementing your own error handling logic here
