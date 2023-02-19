@@ -36,31 +36,29 @@ function App() {
         try {
 
           const configuration = new Configuration({
-            apiKey: "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",
+            apiKey: "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",
           });
           const openai = new OpenAIApi(configuration);
-
 
           const response2 = await openai.createCompletion({
             model: "code-davinci-002",
             prompt: "what is the time complexity of the following code '" + data + "'",
-            temperature: 0,
-            max_tokens: 64,
+            temperature: 0.0,
+            max_tokens: 640,
             top_p: 1.0,
             frequency_penalty: 0.0,
             presence_penalty: 0.0,
             stop: ["\"\"\""],
           });
-
-
-          const data2 = JSON.stringify(response2);
-          const answer = response2.data.choices[0].text;
-          setGptData(answer_parser(answer));
-
+          alert(data)
+          alert("before responce");
           if (response2.status !== 200) {
             throw data2.error || new Error(`Request failed with status ${response2.status}`);
           }
-
+          const data2 = JSON.stringify(response2);
+          const answer = response2.data.choices[0].text;
+          alert(JSON.stringify(response2.data))
+          setGptData(answer_parser(answer));
 
         } catch (error) {
           // Consider implementing your own error handling logic here
@@ -161,17 +159,21 @@ function answer_parser(answer) {
   //let answerLetter = answer.substring(position+10, position+11);
   //let answerPosition = answer.search("\n\n"+answerLetter+". ");
   let retrunValue = null;
-  let answerAsArray = answer.split('\n\n');
+  let answerAsArray = answer.split('\n');
   let answerValue = 0;
   for (let any of answerAsArray) {
+    
     if (any.includes("Answer: ")) {
+      alert(any)
       answerValue = any.substring(8);
     }
   }
+  alert(answerValue)
   let answerValueNumber = answerValue.toLowerCase().charCodeAt(0) - 97 + 1
-  alert(answerValueNumber);
-  if (answerValueNumber != 0) {
-    retrunValue = answerAsArray[answerValueNumber].substring(2);
+  if (answerValue != "") {
+    let value = answer.indexOf("\n"+answerValue+".")
+    let substring = answer.substring(value+3)
+    retrunValue = substring.substring(0,substring.indexOf("\n"));
   }
   return retrunValue;
 
