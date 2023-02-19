@@ -10,16 +10,21 @@ import Model from './Titanic';
 function App() {
 
   const [githubData, setGithubData] = useState({ message: 'Start' })
+  const [langData, setLangData] = useState({})
   const [githubUser, setGithubUser] = useState("")
   const [repo, setGithubRepo] = useState("")
 
 
   const fetchData = async () => {
-    console.log(repo)
-    console.log(githubData.message)
     return fetch(`https://api.github.com/repos/${githubUser}/${repo}`)
       .then((response) => response.json())
-      .then((data) => setGithubData(data));
+      .then((data) => {
+        setGithubData(data);
+        return fetch(data.languages_url)
+          .then((response) => response.json())
+          .then((data) => {console.log(data); setLangData(data)});
+      })
+      ;
   }
 
   //<img src={logo} className="App-logo" alt="logo" />
@@ -48,7 +53,7 @@ function App() {
         <button onClick={fetchData} className="search_button">Search Github</button>
 
         <br></br>
-        {githubData.message == 'Start' ?
+        {githubData.message == 'Start'?
           <div>
             <p>Enter ur github username and repository name! &#128018;</p>
           </div> : githubData.message == 'Not Found' ?
@@ -56,16 +61,21 @@ function App() {
             <div>
               <p>Ur code takes {githubData.size} kB on GitHub servers! &#128560;</p>
               <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(2)} trees this year for you to stay carbon-neutral! &#129382;</p>
+              <p>{Object.values(langData)}</p>
             </div>
         }
+
       </header>
     </div>
   );
 }
+
+
+
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
   const kiloWhatperHourperGigabyte = 0.01;
-  let gigaByte = fileSize/(1024*1024);
+  let gigaByte = fileSize / (1024 * 1024);
   let kiloWhatperHour = gigaByte * kiloWhatperHourperGigabyte;
   return kiloWhatperHour;
 }
@@ -82,7 +92,7 @@ function calculator_finacialCost(fileSize) {
   return finacialCost
 }
 //assume the input is in kilo byte
-function calculator_treePlant(fileSize){
+function calculator_treePlant(fileSize) {
   const treeperKiloWhatperHour = 64.333;
   let treeCost = calculator_kilowhatPerhour(fileSize) * treeperKiloWhatperHour;
   return treeCost;
