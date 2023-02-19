@@ -1,70 +1,14 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Coding down with the ship
+:seedling: :potted_plant: :evergreen_tree: :deciduous_tree: :mushroom: :palm_tree: :cactus: :ear_of_rice: :herb: :shamrock: :four_leaf_clover: :maple_leaf: :leaves:
+<br/>
+<br/>
+In the coding world, it's important to remember that we're all in the same boat when it comes to carbon emissions. We can't keep coding down with the ship and ignoring the looming threat of climate change. The primary cause of global warming is carbon emissions from human activities, such as transportation and energy use. It's time to steer our efforts in the right direction and take responsibility for our impact on the environment. It's not just a "Titanic effort" to reduce our carbon footprint, it's a pun-derful opportunity to make a big impact on preserving the health and well-being of our planet for future generations.
+<br/>
+<br/>
+When it comes to reducing energy consumption in technology, programmers need to take a byte out of carbon emissions. Storing code on GitHub can be a real iceberg to the environment, but it doesn't have to sink us. Inefficient code can result in a lot of energy waste, and that's not a pun I want to code on my watch. We need to write code that's not just efficient, but effective in minimizing unnecessary processing and reducing file sizes. By doing so, we can avoid a coding disaster and make a significant impact on carbon emissions. As professionals, we have a responsibility to ensure our code is sustainable, and that's not just a pun, it's a coding principle. We need to be mindful of the environmental impact of our work and work towards a more sustainable future for all.
+<br/>
+<br/>
+Our team developed a tool that helps to increase awareness about the environmental impact of storing code on the cloud. The tool takes in GitHub repository information and produces helpful factoids that give a better grasp of the effect of storing code on the environment. Our project was built using Node.js, and we assigned each team member tasks based on their availability and interests. We were able to overcome challenges related to our lack of mastery in this field of development by learning on the fly, and we found the process to be fun and a novel experience.
+<br/>
+<br/>
+One of the accomplishments we're most proud of is our ability to fetch GitHub information and use it to provide insight into the environmental impact of code storage. Our team had limited experience with this type of project, so we worked together to learn and implement new skills. We discovered that writing efficient code is key to reducing carbon emissions, and we incorporated this principle into our project. Overall, we're proud of the progress we've made and the impact that our tool can have on increasing individual carbon awareness in the coding community. By taking responsibility for our environmental impact and making small changes, we can work towards a more sustainable future for all.
