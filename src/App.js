@@ -90,7 +90,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>
-          Did you know that Github is carbon neutral?
+          Did you know that Github is carbon neutral? &#128029;
         </h2>
 
         <div style={{ position: "relative", width: '100%', height: 500 }}>
@@ -118,7 +118,7 @@ function App() {
             <div>
               <p>Ur code takes {githubData.size} kB on GitHub servers! &#128560;</p>
               <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(6)} trees this year for you to stay carbon-neutral! &#129382;</p>
-              <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(6)} trees this year for you to stay carbon-neutral! &#129382;</p>
+              <p>You could boil {calculator_kettles(githubData.size).toFixed(6)} kettles of water with the energy used to host your code for a year! &#9749;</p>
             </div>
         }
 
@@ -130,7 +130,7 @@ function App() {
           <div>
             <input type="text" placeholder="File Path" onChange={(e) => setFilePath(e.target.value)} />
             <button onClick={fetchDataGpt} >Check Complexity</button>
-            <p>check your code time complexity! &#128018;</p>
+            <p>check your code time complexity! &#128047;</p>
           </div> : gptData.message == 'Not Found' ?
             <p>Ups... couldn't find it. Try again! &#129431;</p> :
             <div>
@@ -165,6 +165,18 @@ function calculator_finacialCost(fileSize) {
 function calculator_treePlant(fileSize) {
   const treeperKiloWhatperHour = 64.333;
   let treeCost = calculator_kilowhatPerhour(fileSize) * treeperKiloWhatperHour;
+  return treeCost;
+}
+
+function calculator_kettles(fileSize) {
+  const kettle_factor = 0.08;
+  let treeCost = (calculator_kilowhatPerhour(fileSize) * 24 * 365) / kettle_factor;
+  return treeCost;
+}
+
+function calculator_fart(fileSize) {
+  const fart_factor = 0.285;
+  let treeCost = (calculator_kilowhatPerhour(fileSize) * 24 * 365) / fart_factor;
   return treeCost;
 }
 
