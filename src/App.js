@@ -12,6 +12,7 @@ import { any } from 'prop-types';
 function App() {
 
   const [githubData, setGithubData] = useState({ message: 'Start' })
+  const [langData, setLangData] = useState({})
   const [githubUser, setGithubUser] = useState("")
   const [repo, setGithubRepo] = useState("")
   const [file_path, setFilePath] = useState("")
@@ -22,7 +23,13 @@ function App() {
   const fetchData = async () => {
     return fetch(`https://api.github.com/repos/${githubUser}/${repo}`)
       .then((response) => response.json())
-      .then((data) => setGithubData(data));
+      .then((data) => {
+        setGithubData(data);
+        return fetch(data.languages_url)
+          .then((response) => response.json())
+          .then((data) => {console.log(data); setLangData(data)});
+      })
+      ;
   }
   const fetchDataGpt = async (event) => {
     event.preventDefault();
@@ -79,9 +86,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <h2>
           Did you know that Github is carbon neutral?
-        </p>
+        </h2>
         <div style={{ position: "relative", width: '100%', height: 500 }}>
           <Canvas height='500'>
             <ambientLight intensity={0.25} />
@@ -95,11 +102,11 @@ function App() {
         </div>
         <br></br>
 
-        <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} className="input_search" />
-        <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} className="input_search" />
+        <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} />
+        <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} />
         <button onClick={fetchData} className="search_button">Search Github</button>
         <br></br>
-        {githubData.message == 'Start' ?
+        {githubData.message == 'Start'?
           <div>
             <p>Enter ur github username and repository name! &#128018;</p>
           </div> : githubData.message == 'Not Found' ?
@@ -107,12 +114,14 @@ function App() {
             <div>
               <p>Ur code takes {githubData.size} kB on GitHub servers! &#128560;</p>
               <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(2)} trees this year for you to stay carbon-neutral! &#129382;</p>
+              <p>{Object.values(langData)}</p>
             </div>
         }
 
+
         {gptData.message == 'Start' ?
           <div>
-            <input type="text" placeholder="File Path" onChange={(e) => setFilePath(e.target.value)} className="input_search" />
+            <input type="text" placeholder="File Path" onChange={(e) => setFilePath(e.target.value)} />
             <button onClick={fetchDataGpt} className="search_button">Check Complexity</button>
             <p>check your code time complexity! &#128018;</p>
           </div> : gptData.message == 'Not Found' ?
@@ -125,7 +134,6 @@ function App() {
     </div>
   );
 }
-
 
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
