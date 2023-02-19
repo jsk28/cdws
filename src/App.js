@@ -108,7 +108,7 @@ function App() {
 
         <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} />
         <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} />
-        <button onClick={fetchData} >Search Github</button>
+        <button onClick={fetchData} >Click Me &#129470;</button>
         <br></br>
         {githubData.message == 'Start' ?
           <div>
