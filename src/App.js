@@ -36,7 +36,7 @@ function App() {
         try {
 
           const configuration = new Configuration({
-            apiKey: "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",
+            apiKey: "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",
           });
           const openai = new OpenAIApi(configuration);
 
@@ -50,14 +50,11 @@ function App() {
             presence_penalty: 0.0,
             stop: ["\"\"\""],
           });
-          alert(data)
-          alert("before responce");
           if (response2.status !== 200) {
             throw data2.error || new Error(`Request failed with status ${response2.status}`);
           }
           const data2 = JSON.stringify(response2);
           const answer = response2.data.choices[0].text;
-          alert(JSON.stringify(response2.data))
           setGptData(answer_parser(answer));
 
         } catch (error) {
@@ -164,11 +161,9 @@ function answer_parser(answer) {
   for (let any of answerAsArray) {
     
     if (any.includes("Answer: ")) {
-      alert(any)
       answerValue = any.substring(8);
     }
   }
-  alert(answerValue)
   let answerValueNumber = answerValue.toLowerCase().charCodeAt(0) - 97 + 1
   if (answerValue != "") {
     let value = answer.indexOf("\n"+answerValue+".")
