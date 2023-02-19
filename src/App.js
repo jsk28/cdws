@@ -16,8 +16,8 @@ function App() {
   const [githubUser, setGithubUser] = useState("")
   const [repo, setGithubRepo] = useState("")
   const [file_path, setFilePath] = useState("")
-  const [file_code, setFileCode] = useState("")
   const [gptData, setGptData] = useState({ message: 'Start' })
+  const [spinner, setSpinner] = useState(false);
 
 
   const fetchData = async () => {
@@ -27,23 +27,23 @@ function App() {
         setGithubData(data);
         return fetch(data.languages_url)
           .then((response) => response.json())
-          .then((data) => {console.log(data); setLangData(data)});
+          .then((data) => { console.log(data); setLangData(data) });
       })
       ;
   }
   const fetchDataGpt = async (event) => {
+    setSpinner(true);
     event.preventDefault();
     const { Configuration, OpenAIApi } = require("openai");
     console.log(file_path)
     return fetch(`https://raw.githubusercontent.com/${githubUser}/${repo}/main/${file_path}`)
       .then((response) => response.text())
       .then(async (data) => {
-        setFileCode(data);
         console.log(data)
         try {
 
           const configuration = new Configuration({
-            apiKey: "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",
+            apiKey: "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",
           });
           const openai = new OpenAIApi(configuration);
 
@@ -59,17 +59,20 @@ function App() {
           });
           const data2 = JSON.stringify(response2);
           if (response2.status !== 200) {
-            setGptData({ message: 'Not Found'});
+            setGptData({ message: 'Not Found' });
+            setSpinner(false);
             throw data2.error || new Error(`Request failed with status ${response2.status}`);
           } else {
             const answer = response2.data.choices[0].text;
             setGptData(answer_parser(answer));
+            setSpinner(false);
           }
 
         } catch (error) {
           // Consider implementing your own error handling logic here
           console.error(error);
           alert(error.message);
+          setSpinner(false);
         }
       })
 
@@ -89,6 +92,7 @@ function App() {
         <h2>
           Did you know that Github is carbon neutral?
         </h2>
+
         <div style={{ position: "relative", width: '100%', height: 500 }}>
           <Canvas height='500'>
             <ambientLight intensity={0.25} />
@@ -104,25 +108,28 @@ function App() {
 
         <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} />
         <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} />
-        <button onClick={fetchData} className="search_button">Search Github</button>
+        <button onClick={fetchData} >Search Github</button>
         <br></br>
-        {githubData.message == 'Start'?
+        {githubData.message == 'Start' ?
           <div>
             <p>Enter ur github username and repository name! &#128018;</p>
           </div> : githubData.message == 'Not Found' ?
             <p>Ups... couldn't find it. Try again! &#129431;</p> :
             <div>
               <p>Ur code takes {githubData.size} kB on GitHub servers! &#128560;</p>
-              <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(2)} trees this year for you to stay carbon-neutral! &#129382;</p>
-              <p>{Object.values(langData)}</p>
+              <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(6)} trees this year for you to stay carbon-neutral! &#129382;</p>
+              <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(6)} trees this year for you to stay carbon-neutral! &#129382;</p>
             </div>
         }
 
 
+        {spinner ?
+          <img src={logo} className="App-logo" alt="logo" /> : null
+        }
         {gptData.message == 'Start' ?
           <div>
             <input type="text" placeholder="File Path" onChange={(e) => setFilePath(e.target.value)} />
-            <button onClick={fetchDataGpt} className="search_button">Check Complexity</button>
+            <button onClick={fetchDataGpt} >Check Complexity</button>
             <p>check your code time complexity! &#128018;</p>
           </div> : gptData.message == 'Not Found' ?
             <p>Ups... couldn't find it. Try again! &#129431;</p> :
@@ -169,16 +176,16 @@ function answer_parser(answer) {
   let answerAsArray = answer.split('\n');
   let answerValue = 0;
   for (let any of answerAsArray) {
-    
+
     if (any.includes("Answer: ")) {
       answerValue = any.substring(8);
     }
   }
   let answerValueNumber = answerValue.toLowerCase().charCodeAt(0) - 97 + 1
   if (answerValue != "") {
-    let value = answer.indexOf("\n"+answerValue+".")
-    let substring = answer.substring(value+3)
-    retrunValue = substring.substring(0,substring.indexOf("\n"));
+    let value = answer.indexOf("\n" + answerValue + ".")
+    let substring = answer.substring(value + 3)
+    retrunValue = substring.substring(0, substring.indexOf("\n"));
   }
   return retrunValue;
 
