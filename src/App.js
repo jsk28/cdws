@@ -32,9 +32,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <h2>
           Did you know that Github is carbon neutral?
-        </p>
+        </h2>
         <div style={{ position: "relative", width: '100%', height: 500 }}>
           <Canvas height='500'>
             <ambientLight intensity={0.25} />
@@ -48,8 +48,8 @@ function App() {
         </div>
         <br></br>
 
-        <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} className="input_search" />
-        <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} className="input_search" />
+        <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} />
+        <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} />
         <button onClick={fetchData} className="search_button">Search Github</button>
 
         <br></br>
