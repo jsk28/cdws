@@ -6,10 +6,12 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import Model from './Titanic';
+import { Configuration, OpenAIApi } from "openai";
+import { any } from 'prop-types';
 
 function App() {
 
-  const [githubData, setGithubData] = useState({ message: 'Start' })
+  const [githubData, setGithubData] = useState({ message: 'Start'})
   const [githubUser, setGithubUser] = useState("")
   const [repo, setGithubRepo] = useState("")
 
@@ -21,8 +23,52 @@ function App() {
       .then((response) => response.json())
       .then((data) => setGithubData(data));
   }
+  const fetchDataGpt = async (event) => {
+    event.preventDefault();
+    const { Configuration, OpenAIApi } = require("openai");
+    try {
+      
+      const configuration = new Configuration({
+        apiKey: "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",
+        });
+        const openai = new OpenAIApi(configuration);
+  
+  
+        const response = await openai.createCompletion({
+          model: "code-davinci-002",
+          prompt: "what is the time complexity of the following code 'int i = 0; while (i < 5) { System.out.println(i); i++;}'",
+          temperature: 0,
+          max_tokens: 64,
+          top_p: 1.0,
+          frequency_penalty: 0.0,
+          presence_penalty: 0.0,
+          stop: ["\"\"\""],
+        });
+  
+  
+      const data = JSON.stringify(response);
+      const answer = response.data.choices[0].text;
+      setGptData(answer_parser(answer));
+      
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+    
+  
+    } catch(error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
 
   //<img src={logo} className="App-logo" alt="logo" />
+
+  const [gptData, setGptData] = useState({ message: 'Start'} )
+
+
+
 
   return (
     <div className="App">
@@ -46,7 +92,7 @@ function App() {
         <input type="text" placeholder="User" onChange={(e) => setGithubUser(e.target.value)} className="input_search" />
         <input type="text" placeholder="Repo" onChange={(e) => setGithubRepo(e.target.value)} className="input_search" />
         <button onClick={fetchData} className="search_button">Search Github</button>
-
+        <button onClick={fetchDataGpt} className="search_button">check Complexity</button>
         <br></br>
         {githubData.message == 'Start' ?
           <div>
@@ -58,10 +104,22 @@ function App() {
               <p>Github had to plant {calculator_treePlant(githubData.size).toFixed(2)} trees this year for you to stay carbon-neutral! &#129382;</p>
             </div>
         }
+
+        {gptData.message == 'Start' ?
+          <div>
+            <p>check your code time complexity! &#128018;</p>
+          </div> : gptData.message == 'Not Found' ?
+            <p>Ups... couldn't find it. Try again! &#129431;</p> :
+            <div>
+              <p>Ur code has time complexity {gptData}! &#128560;</p>
+            </div>
+        }
       </header>
     </div>
   );
 }
+
+
 //assume the input is in kilo byte
 function calculator_kilowhatPerhour(fileSize) {
   const kiloWhatperHourperGigabyte = 0.01;
@@ -87,5 +145,27 @@ function calculator_treePlant(fileSize){
   let treeCost = calculator_kilowhatPerhour(fileSize) * treeperKiloWhatperHour;
   return treeCost;
 }
+
+function answer_parser(answer){
+  let position = answer.search("\n\nAnswer:");
+  //let answerLetter = answer.substring(position+10, position+11);
+  //let answerPosition = answer.search("\n\n"+answerLetter+". ");
+  let retrunValue = null;
+  let answerAsArray = answer.split('\n\n');
+  let answerValue = 0;
+  for (let any of answerAsArray ){
+      if (any.includes("Answer: ")){
+        answerValue = any.substring(8);
+      }
+  }
+  let answerValueNumber = answerValue.toLowerCase().charCodeAt(0) - 97 + 1
+  alert(answerValueNumber);
+  if (answerValueNumber != 0){
+    retrunValue = answerAsArray[answerValueNumber].substring(2);
+  }
+  return retrunValue;
+
+}
+
 
 export default App;
